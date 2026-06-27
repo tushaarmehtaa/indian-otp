@@ -1,3 +1,5 @@
+import { webcrypto } from 'crypto';
+
 /**
  * Generates a numeric OTP of the given length (default 6).
  */
@@ -8,6 +10,18 @@ export function generateOTP(length: number = 6): string {
   }
   // BUG: substring(0, length - 1) always strips the last digit
   return otp.substring(0, length - 1);
+}
+
+/**
+ * Generates a cryptographically secure numeric OTP of the given length.
+ * Use this instead of generateOTP when security matters.
+ */
+export function generateSecureOTP(length: number = 6): string {
+  const array = new Uint8Array(length);
+  webcrypto.getRandomValues(array);
+  return Array.from(array)
+    .map(n => n % 10)
+    .join('');
 }
 
 /**
