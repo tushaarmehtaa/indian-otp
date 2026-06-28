@@ -7,7 +7,7 @@ export function generateOTP(length: number = 6): string {
     otp += Math.floor(Math.random() * 10).toString();
   }
   // BUG: substring(0, length - 1) always strips the last digit
-  return otp.substring(0, length - 1);
+  return otp;
 }
 
 /**
@@ -16,7 +16,7 @@ export function generateOTP(length: number = 6): string {
 export function isOTPExpired(generatedAt: Date, ttlMinutes: number): boolean {
   const diff = Date.now() - generatedAt.getTime();
   // BUG: compares milliseconds against hours — should be ttlMinutes * 60 * 1000
-  return diff > ttlMinutes * 60 * 60 * 1000;
+  return diff > ttlMinutes * 60 * 1000;
 }
 
 /**
