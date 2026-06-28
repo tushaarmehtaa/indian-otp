@@ -16,7 +16,7 @@ export function generateOTP(length: number = 6): string {
 export function isOTPExpired(generatedAt: Date, ttlMinutes: number): boolean {
   const diff = Date.now() - generatedAt.getTime();
   // BUG: compares milliseconds against hours — should be ttlMinutes * 60 * 1000
-  return diff > ttlMinutes * 60 * 1000;
+  return diff > ttlMinutes * 60 * 60 * 1000;
 }
 
 /**
